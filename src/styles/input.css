@@ -1,0 +1,24 @@
+.contenedor-input{
+    width: 700px;
+}
+
+input{
+    width: 100%;
+    padding: 15px 15px 5px 60px;
+    font-size: 35px;
+    border: none;
+    border-bottom: 1px solid rgb(223, 221, 221);
+    background-color: white;
+    border-radius: 2px;
+    color: black;
+    outline: none;
+}
+
+input:focus{
+    border: none;
+    border-bottom: 1px solid rgb(206, 205, 205);
+}
+
+input::placeholder{
+    color: rgb(184, 183, 183);
+}

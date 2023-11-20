@@ -1,0 +1,19 @@
+.elemento{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 35px;
+    padding: 20px 30px 20px 60px;
+    border-top: 1px solid rgb(223, 221, 221);
+    border-bottom: 1px solid rgb(223, 221, 221);
+}
+
+.icono-borrar{
+    color: crimson;
+    cursor: pointer;
+    display: none;
+}
+
+.elemento:hover .icono-borrar{
+    display: block;
+}

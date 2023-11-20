@@ -1,12 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poiret One', sans-serif;
+}
 
-/* 
+body{
+    background-color: rgb(245, 244, 244);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
 
-*/
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1{
+    color: rgb(219, 219, 197);
+    font-size: 120px;
+    margin-top: 15px;
+    user-select: none;
+}
+
+.tasks-left{
+    color: red;
+    font-size: 35px;
+    margin: 10px;
+    user-select: none;
+}

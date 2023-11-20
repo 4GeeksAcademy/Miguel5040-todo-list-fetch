@@ -1,0 +1,28 @@
+.contenedor-principal{
+    width: 700px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.lista{
+    width: 100%;
+}
+
+.contador-elementos-lista-contenedor{
+    padding: 10px 20px 10px 20px;
+    font-size: 19px;
+    color: black;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-all{
+    padding: 6px;
+    font-size: 24px;
+    border-radius: 3px;
+    background-color: rgb(240, 239, 239);
+    border-color: white;
+}
