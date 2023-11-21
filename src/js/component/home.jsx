@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Input from "./input";
 import Lista from "./lista";
 
+const tareaDefault = [{ "done": false, "label": "example task" }];
+
 //create your first component
 const Home = () => {
 
@@ -9,19 +11,37 @@ const Home = () => {
 	const [mostrarLista, setMostrarLista] = useState("");
 	const [mostrarMensaje, setMostrarMensaje] = useState("");
 
+	//Funcion para crear usuario nuevo;
+	function crearUsuario() {
+		fetch("https://playground.4geeks.com/apis/fake/todos/user/Alberto",
+			{
+				method: "POST",
+				body: JSON.stringify([]),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+	}
+
+	//Funcion para enviar informacion por medio del metodo PUT HTTP
+	function enviarData(body) {
+		fetch("https://playground.4geeks.com/apis/fake/todos/user/Alberto",
+			{
+				method: "PUT",
+				body: JSON.stringify(body),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+	}
+
 	//Funcion para verificar si el usuario existe, en caso de que no, crear uno nuevo.
 	async function verificarUsuarioExiste(respuesta) {
 		try {
 			if (respuesta.status === 404) {
-				fetch("https://playground.4geeks.com/apis/fake/todos/user/Alberto",
-					{
-						method: "POST",
-						body: JSON.stringify([]),
-						headers: {
-							'Content-Type': 'application/json'
-						}
-					});
-				alert("Su usuario se ha eliminado por problemas del servidor, sus tareas se han borrado, vuelva a recargar la pagina");
+				crearUsuario();
+				alert("Su usuario se ha eliminado por problemas del servidor, sus tareas se han borrado");
+				return true;
 			}
 		} catch (error) {
 			alert("API caida, porfavor vuelva a intentarlo nuevamente mas tarde")
@@ -32,7 +52,12 @@ const Home = () => {
 	async function solicitarData() {
 		try {
 			const response = await fetch("https://playground.4geeks.com/apis/fake/todos/user/Alberto");
-			verificarUsuarioExiste(response);
+			if (verificarUsuarioExiste(response)) {
+				const respuesta = await fetch("https://playground.4geeks.com/apis/fake/todos/user/Alberto");
+				const info = await respuesta.json();
+				setTareas(info);
+				return;
+			}
 			const data = await response.json();
 			setTareas(data);
 		} catch (error) {
@@ -45,26 +70,10 @@ const Home = () => {
 
 		try {
 			if (tareasActualizadas.length === 0) {
-				await fetch("https://playground.4geeks.com/apis/fake/todos/user/Alberto",
-					{
-						method: "PUT",
-						body: JSON.stringify([{ "done": false, "label": "example task" }]),
-						headers: {
-							'Content-Type': 'application/json'
-						}
-					});
+				await enviarData(tareaDefault);
 				return true
 			}
-
-			await fetch("https://playground.4geeks.com/apis/fake/todos/user/Alberto",
-				{
-					method: "PUT",
-					body: JSON.stringify(tareasActualizadas),
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				});
-
+			await enviarData(tareasActualizadas);
 			return true;
 
 		} catch (error) {
@@ -112,15 +121,7 @@ const Home = () => {
 					}
 				});
 
-			await fetch("https://playground.4geeks.com/apis/fake/todos/user/Alberto",
-				{
-					method: "POST",
-					body: JSON.stringify([]),
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				});
-
+			await crearUsuario();
 			await solicitarData();
 		} catch (error) {
 			alert("No se a podido realizar esta accion con exito, vuelva a intentarlo")

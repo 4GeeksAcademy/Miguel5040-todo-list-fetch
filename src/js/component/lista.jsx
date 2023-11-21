@@ -8,7 +8,7 @@ const Lista = (props) => {
         <div className='contenedor-principal' style={{ display: props.mostrarLista }}>
             <div className='lista'>
                 {props.tareas.map((tarea, index) => (
-                    <Elemento tarea={tarea.label} index={index} borrarTarea={props.borrarTarea} />
+                    <Elemento tarea={tarea.label} key={index} borrarTarea={props.borrarTarea} />
                 ))}
             </div>
             <div className='contador-elementos-lista-contenedor'>
